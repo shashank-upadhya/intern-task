@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Listing</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f8;
+    }
+
+    header {
+      background-color: #2a9d8f;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-around;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .controls select {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .product-card {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .product-card img {
+      max-width: 100%;
+      height: 150px;
+      object-fit: contain;
+    }
+
+    .product-card h3 {
+      font-size: 18px;
+      margin: 10px 0 5px;
+    }
+
+    .product-card p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .price {
+      margin-top: 8px;
+      font-weight: bold;
+      color: #2a9d8f;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Product Listing</h1>
+</header>
+
+<div class="controls">
+  <select id="categoryFilter" onchange="filterProducts()">
+    <option value="all">All Categories</option>
+    <option value="electronics">Electronics</option>
+    <option value="clothing">Clothing</option>
+    <option value="accesories">Accesories</option>
+  </select>
+
+  <select id="sortOption" onchange="sortProducts()">
+    <option value="default">Sort By</option>
+    <option value="price-asc">Price: Low to High</option>
+    <option value="price-desc">Price: High to Low</option>
+    <option value="rating-desc">Rating: High to Low</option>
+  </select>
+</div>
+
+<div class="products" id="productGrid"></div>
+
+<script>
+  const products = [
+    { id: 1, name: "Smartphone", category: "electronics", price: 19999, rating: 4.5, image: "https://opsg-img-cdn-gl.heytapimg.com/epb/202412/19/AceLeaXtntKw1AZf.png" },
+    { id: 2, name: "T-shirt", category: "clothing", price: 599, rating: 4.2, image: "https://thebanyantee.com/cdn/shop/files/Black-T-shirt.jpg?v=1721380366" },
+    { id: 3, name: "Headphones", category: "electronics", price: 5599, rating: 4.7, image: "https://www.gonoise.com/cdn/shop/files/1_2807dbd9-3951-481c-9e9a-61af0420cd37.webp?v=1720759165" },
+    { id: 4, name: "Helmet", category: "accesories", price: 1399, rating: 4.0, image: "https://powersports.in/cdn/shop/files/MT_Revenge_2_Imperium_Gloss_flour_Yellow_Helmet_02.jpg?v=1729231012" },
+    { id: 5, name: "Jeans", category: "clothing", price: 899, rating: 4.1, image: "https://d2lo0tepqt73yr.cloudfront.net/migProductImages/O-8560109%20G00431-01.jpg" },
+    { id: 6, name: "Laptop", category: "electronics", price: 69999, rating: 4.8, image: "https://jamesandco.in/wp-content/uploads/2024/09/71vFKBpKakL._SL1500.jpg" }
+  ];
+
+  let currentProducts = [...products];
+
+  function renderProducts(list) {
+    const container = document.getElementById('productGrid');
+    container.innerHTML = '';
+    list.forEach(product => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" />
+        <h3>${product.name}</h3>
+        <p>Rating: ${product.rating}</p>
+        <div class="price">Rs.${product.price}</div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function filterProducts() {
+    const category = document.getElementById('categoryFilter').value;
+    currentProducts = category === 'all' ? [...products] : products.filter(p => p.category === category);
+    sortProducts(); 
+  }
+
+  function sortProducts() {
+    const sortBy = document.getElementById('sortOption').value;
+    let sorted = [...currentProducts];
+    if (sortBy === 'price-asc') {
+      sorted.sort((a, b) => a.price - b.price);
+    } else if (sortBy === 'price-desc') {
+      sorted.sort((a, b) => b.price - a.price);
+    } else if (sortBy === 'rating-desc') {
+      sorted.sort((a, b) => b.rating - a.rating);
+    }
+    renderProducts(sorted);
+  }
+
+  window.onload = () => renderProducts(products);
+</script>
+
+</body>
+</html>
