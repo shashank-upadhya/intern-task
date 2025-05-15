@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Portfolio - [Your Name]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="5a.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo"><strong>My Portfolio</strong></div>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle Menu">
+                <i class="fas fa-bars" style="padding-right: 1.5rem;"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <button class="toggle-theme" onclick="toggleTheme()">
+                <i class="fas fa-sun" id="theme-toggle-sun" ></i>
+                <i class="fas fa-moon" id="theme-toggle-moon"></i>
+            </button>
+        </nav>
+
+    </header>
+
+    <script>
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcons(newTheme);
+        }
+
+        function updateThemeIcons(theme) {
+            const sunIcon = document.getElementById('theme-toggle-sun');
+            const moonIcon = document.getElementById('theme-toggle-moon');
+
+            if (theme === 'dark') {
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'none';
+            } else {
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+            }
+
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcons(savedTheme);
+        });
+        document.getElementById('hamburgerBtn').addEventListener('click', () => {
+        const nav = document.getElementById('navLinks');
+        nav.classList.toggle('active');
+        });
+    </script>
+
+    <section class="hero">
+        <h1>Hi, I'm Shashank Upadhya</h1>
+        <p>Frontend Developer | UI Designer | JavaScript Enthusiast</p>
+        </section>
+
+    <section id="about" class="about">
+        <h2>About Me</h2>
+        <p>
+            I am a frontend web developer with a passion for creating elegant and efficient user interfaces. I specialize in building responsive and accessible websites using HTML, CSS, and JavaScript.
+        </p>
+        <p>
+            The mentioned skills and my general interest in keeping up with latest trends and technologies.  
+
+        </p>
+        </section>
+
+    <section id="skills" class="skills">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+            </div>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card" data-project="worldle">
+                <h3>Worldle Clone</h3>
+                <p>A daily geography guessing game using LeafletJS and REST Countries API. Users guess the country based on shape and distance hints.</p>
+                <a href="#" class="project-link" data-project="worldle">Learn More</a>
+            </div>
+            <div class="project-card" data-project="github-analyzer">
+                <h3>GitHub User Analyzer</h3>
+                <p>Built with React and ShadCN UI. It provides insights into any GitHub profile with visualized stats and repo analysis.</p>
+                <a href="#" class="project-link" data-project="github-analyzer">Learn More</a>
+            </div>
+            <div class="project-card" data-project="Cost of Living Analyzer">
+                <h3>Cost of Living Analyzer</h3>
+                <p>A dynamic React interface featuring interactive charts (Chart.js) to compare cost of living data fetched from a custom-built Django REST API. Utilized Tailwind CSS for responsive layouts.</p>
+                <a href="#" class="project-link" data-project="Cost of Living Analyzer">Learn More</a>
+            </div>
+            <div class="project-card" data-project="">
+                <h3>Evaluation of Lossy and Lossless Image Compression Methods</h3>
+                <p>It implements image compression using Huffman coding, aiming to reduce file size by assigning shorter bit codes to more frequent pixel values. It includes standalone scripts for compression/decompression and a GUI for user-friendly interaction with these algorithms.</p>
+                <a href="#" class="project-link" data-project="Evaluation of Lossy and Lossless Image Compression Methods">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+<div id="projectDetailsModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h3 id="modal-title"></h3>
+        <div id="modal-details">
+            </div>
+        <div id="modal-links">
+            </div>
+    </div>
+</div>
+
+    <section id="contact" class="contact">
+        <h2>Contact</h2>
+        <p>You can reach out to me at: <a href="shashankupadhya813@gmail.com">shashankupadhya813@gmail.com</a></p>
+        </section>
+
+    <footer>
+        &copy; 2025 Shashnk Upadhya. All rights reserved.
+    </footer>
+
+    <button class="scroll-to-top" id="scrollToTopBtn" onclick="scrollToTop()">↑</button>
+
+    <script src="5a.js"></script>
+</body>
+</html>
